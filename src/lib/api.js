@@ -1,7 +1,7 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || "";
 
 async function request(path, options) {
-  const res = await fetch(`${API_BASE_URL}${path}`, options);
+  const res = await fetch(`${API_BASE_URL}${path}`, { ...options, credentials: "include" });
   const isJson = res.headers.get("content-type")?.includes("application/json");
   const body = isJson ? await res.json() : null;
   if (!res.ok) {
