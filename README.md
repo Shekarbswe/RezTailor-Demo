@@ -8,7 +8,7 @@ and each visitor's uploads are private to their own session. This repository con
 only the frontend — the full backend, prompt design, and document-editing engine remain
 in a private repository as part of ongoing development.
 
-Live demo: 
+Live demo: https://rez-tailor-demo-delta.vercel.app/
 ---
 
 ## What this does
