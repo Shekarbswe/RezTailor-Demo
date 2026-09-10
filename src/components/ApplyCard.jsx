@@ -1,5 +1,6 @@
 import Card from "./ui/Card.jsx";
 import Button from "./ui/Button.jsx";
+import { API_BASE_URL } from "../lib/api.js";
 
 function DownloadIcon() {
   return (
@@ -11,6 +12,10 @@ function DownloadIcon() {
 
 export default function ApplyCard({ acceptedCount, totalCount, applying, applyResult, onApply }) {
   const isStickyFooter = !applyResult;
+
+  const downloadUrl = applyResult?.downloadUrl
+    ? `${API_BASE_URL}${applyResult.downloadUrl}`
+    : "";
 
   return (
     <Card
@@ -27,9 +32,11 @@ export default function ApplyCard({ acceptedCount, totalCount, applying, applyRe
             {applyResult.appliedCount} change{applyResult.appliedCount === 1 ? "" : "s"} applied to a new tailored
             copy.
           </p>
+
           <a
-            href={applyResult.downloadUrl}
-            download
+            href={downloadUrl}
+            target="_blank"
+            rel="noreferrer"
             data-testid="button-download"
             className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:opacity-90"
           >
@@ -43,6 +50,7 @@ export default function ApplyCard({ acceptedCount, totalCount, applying, applyRe
             {acceptedCount} of {totalCount} suggested changes selected. Your base resume file stays untouched — this
             creates a new tailored copy.
           </p>
+
           <Button onClick={onApply} disabled={applying || acceptedCount === 0} data-testid="button-apply">
             {applying ? "Updating…" : "Update the resume"}
           </Button>
